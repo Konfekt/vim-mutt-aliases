@@ -30,7 +30,7 @@ mode. See `:help i_CTRL-X_CTRL-U` and `:help compl-function`.
 
 # Setup
 
-The mutt aliases file is automatically set to the value of the variable `$alias_file` in the file `~/.muttrc`.
+The mutt aliases file is automatically set to the value of the variable `$alias_file` used by `mutt`.
 To explicitly set the path to a mutt aliases file `$file`, add to your `.vimrc` the line
 
 ```vim

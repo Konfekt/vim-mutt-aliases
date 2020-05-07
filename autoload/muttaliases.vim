@@ -1,30 +1,39 @@
 function! muttaliases#SetMuttAliasesFile() abort
   if !exists('g:muttaliases_file')
-    if executable('mutt')
-      silent let output = split(system('mutt -Q "alias_file"'), '\n')
+    let g:muttaliases_file = ''
+
+    let muttexes = ['neomutt', 'mutt']
+    for muttexe in muttexes
+      if executable(muttexe) | let mutt = muttexe | break | endif
+    endfor
+
+    if exists('mutt')
+      silent let output = split(system(mutt . ' -Q "alias_file"'), '\n')
 
       for line in output
         let alias_file = matchstr(line,'\v^\s*' . 'alias_file' . '\s*\=\s*[''"]?' . '\zs[^''"]*\ze' . '[''"]?$')
         if !empty(alias_file)
           let g:muttaliases_file = resolve(expand(alias_file))
-        else
-          let g:muttaliases_file = ''
-        endif
-      endfor
-    elseif filereadable(expand('~/.muttrc'))
-      " pedestrian's way
-      let muttrc = readfile(expand('~/.muttrc'))
-
-      for line in muttrc
-        let alias_file = matchstr(line,'\v^\s*set\s+' . 'alias_file' . '\s*\=\s*[''"]?' . '\zs[^''"]*\ze' . '[''"]?$')
-        if !empty(alias_file)
-          let g:muttaliases_file = resolve(expand(alias_file))
-        else
-          let g:muttaliases_file = ''
+          break
         endif
       endfor
     else
-      let g:muttaliases_file = ''
+      " pedestrian's way
+      let muttrcs = ['~/.config/neomutt/neomuttrc', '~/.config/neomutt/muttrc', '~/.config/mutt/neomuttrc',
+            \ '~/.config/mutt/muttrc', '~/.neomutt/neomuttrc', '~/.neomutt/muttrc', '~/.mutt/neomuttrc',
+            \ '~/.mutt/muttrc', '~/.neomuttrc', '~/.muttrc']
+      let muttrc_content = []
+      for muttrc in muttrc
+        if filereadable(expand(muttrc)) | let muttrc_content = readfile(expand(muttrc)) | break | endif
+      endfor
+
+      for line in muttrc_content
+        let alias_file = matchstr(line,'\v^\s*set\s+' . 'alias_file' . '\s*\=\s*[''"]?' . '\zs[^''"]*\ze' . '[''"]?$')
+        if !empty(alias_file)
+          let g:muttaliases_file = resolve(expand(alias_file))
+          break
+        endif
+      endfor
     endif
   endif
   if !filereadable(g:muttaliases_file)
