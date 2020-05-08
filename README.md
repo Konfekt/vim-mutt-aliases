@@ -43,6 +43,18 @@ For example, `$file` could be
   ~/.mutt/aliases
 ```
 
+As a suggestion, if you use different mail accounts with different aliases, add in `.muttrc` a folder hook, say for the account `mailo`,
+
+```
+folder-hook '~/.local/share/mbsync/mailo/' 'source "$XDG_CONFIG_HOME/mutt/accounts/mailo"'
+```
+
+and in `"$XDG_CONFIG_HOME/mutt/accounts/mailo"` tell Vim about the alias file by
+
+```
+set editor = 'vim +"let g:muttaliases_file=\"$XDG_CONFIG_HOME/mutt/accounts/mailo.aliases\"" %s'
+```
+
 # Related:
 
 - To add aliases

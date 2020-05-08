@@ -17,7 +17,7 @@ and in your mutt aliases file there is an entry
 >
     alias foo foo@bar.com
 <
-and your cursor is right after `foo`, then hit `Ctrl+X Ctrl+U` to obtain:
+and your cursor is right after foo, then hit Ctrl+X Ctrl+U to obtain:
 >
     From: Lu Guanqun <guanqun.lu@gmail.com>
     To:   foo@bar.com
@@ -37,14 +37,24 @@ mode. See |i_CTRL-X_CTRL-U| and |compl-function|.
 2. Setup ~
 
 The mutt aliases file is automatically set to the value of the variable
-`$alias_file` used by mutt. To explicitly set the path to a mutt
-aliases file $file, add to your `.vimrc` the line
+$alias_file used by mutt. To explicitly set the path to a mutt
+aliases file $file, set *g:muttaliases_file* in your .vimrc
 >
   let g:muttaliases_file = '$file'
 <
 For example, $file could be
 >
   ~/.mutt/aliases
+<
+As a suggestion, if you use different mail accounts with different aliases,
+add in .muttrc a folder hook, say for the account named mailo,
+>
+  folder-hook '~/.local/share/mbsync/mailo/' 'source "$XDG_CONFIG_HOME/mutt/accounts/mailo.muttrc"'
+<
+and in "$XDG_CONFIG_HOME/mutt/accounts/mailo.muttrc" tell Vim about the alias
+file by
+>
+  set editor = 'vim +"let g:muttaliases_file=\"$XDG_CONFIG_HOME/mutt/accounts/mailo.aliases\"" %s'
 <
 
 ===========================================================================
