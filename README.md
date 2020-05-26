@@ -30,6 +30,10 @@ mode. See `:help i_CTRL-X_CTRL-U` and `:help compl-function`.
 
 # Setup
 
+The completion and command are enabled in all mail buffers by default. Add
+additional file types to `g:muttaliases_filetypes` which defaults to the value
+`[ 'mail' ]`.
+
 The mutt aliases file is automatically set to the value of the variable `$alias_file` used by `mutt`.
 To explicitly set the path to a mutt aliases file `$file`, add to your `.vimrc` the line
 
