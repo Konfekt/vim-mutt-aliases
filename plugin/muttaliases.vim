@@ -1,3 +1,12 @@
+if exists('g:loaded_muttaliases') || &cp
+  finish
+endif
+let g:loaded_muttaliases = 1
+
+let s:keepcpo         = &cpo
+set cpo&vim
+" ------------------------------------------------------------------------------
+
 if !exists('g:muttaliases_filetypes')
   let g:muttaliases_filetypes = [ 'mail' ]
 endif
@@ -21,3 +30,6 @@ augroup muttaliases
   exe 'autocmd FileType' s:fts 'MuttAliasesCompletion'
 augroup end
 
+" ------------------------------------------------------------------------------
+let &cpo= s:keepcpo
+unlet s:keepcpo
