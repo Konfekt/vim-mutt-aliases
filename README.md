@@ -25,14 +25,14 @@ and your cursor is right after `foo`, then hit `Ctrl+X Ctrl+U` to obtain:
 The command `:EditAliases` opens the mutt aliases file in `Vim`.
 (For less typing, you can (command-line) alias it to `ea` by [vim-alias](https://github.com/Konfekt/vim-alias))
 
-To complete e-mail addresses inside Vim press `CTRL-X CTRL-U` in insert
-mode. See `:help i_CTRL-X_CTRL-U` and `:help compl-function`.
+To complete e-mail addresses press `CTRL-X CTRL-U` in insert mode. See `:help
+i_CTRL-X_CTRL-U` and `:help compl-function`.
 
 # Setup
 
-The completion and command are enabled in all mail buffers by default. Add
-additional file types to `g:muttaliases_filetypes` which defaults to the value
-`[ 'mail' ]`.
+Completion is enabled in all mail buffers by default.
+Add additional file types to the list `g:muttaliases_filetypes` which defaults to `[ 'mail' ]`.
+To enable completion in other buffers, run `:MuttAliasesCompletion`.
 
 The mutt aliases file is automatically set to the value of the variable `$alias_file` used by `mutt`.
 To explicitly set the path to a mutt aliases file `$file`, add to your `.vimrc` the line

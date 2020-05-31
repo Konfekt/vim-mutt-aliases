@@ -11,9 +11,9 @@ let s:fts = s:fts[:-1]
 command! MuttAliasesCompletion call s:muttaliases()
 
 function! s:muttaliases() abort
+  call muttaliases#SetMuttAliasesFile()
   setlocal completefunc=muttaliases#CompleteMuttAliases
   command! -buffer EditAliases call muttaliases#EditMuttAliasesFile()
-  autocmd muttaliases BufWinEnter <buffer> call muttaliases#SetMuttAliasesFile()
 endfunction
 
 augroup muttaliases
