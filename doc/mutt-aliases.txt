@@ -5,7 +5,7 @@
 
 This plug-in lets you complete mutt aliases (listed in ~/.mutt/aliases) inside
 Vim; useful when using Vim as editor for mutt (especially with $edit_headers).
-(See also the shell script https://github.com/Konfekt/mutt-alias.sh to populate
+(See also the shell script [mutt-alias][0] to populate
 the aliases file with recent e-mail addresses in your Inbox or Sent folder).
 
 When you're editing a mail file in Vim that reads
@@ -28,7 +28,7 @@ and your cursor is right after foo, then hit Ctrl+X Ctrl+U to obtain:
 
 The command :*EditAliases* opens the mutt aliases file in Vim.
 For less typing, you can (command-line) alias it to ea by
-https://github.com/Konfekt/vim-alias
+[vim-alias][1]
 
 To complete e-mail addresses press CTRL-X CTRL-U in insert
 mode. See |i_CTRL-X_CTRL-U| and |compl-function|.
@@ -65,14 +65,19 @@ file by
 3. Related ~
 
 To add aliases for all e-mail addresses found in a mail dir, such as the
-INBOX, there is the shell script https://github.com/Konfekt/mutt-alias.sh ;
+INBOX, there is the shell script [mutt-alias.sh][2] ;
 best run by a, say weekly, (ana)cronjob.
 
-The plugin https://github.com/Konfekt/vim-mailquery lets you complete e-mail
-addresses in Vim by those in your Inbox (or any other mail folder).
+The plugin [mutt-query-complete][3] lets you
+complete e-mail addresses in Vim by the `$query_command` set up in Mutt
 
-The plugin https://github.com/Konfekt/vim-notmuch-addrlookup lets you
-complete e-mail addresses in Vim by those indexed by notmuch.
+## Links
+
+[0]: [mutt-alias](https://github.com/Konfekt/mutt-alias.sh)
+[1]: [vim-alias](https://github.com/Konfekt/vim-alias)
+[2]: [mutt-alias.sh](https://github.com/Konfekt/mutt-alias.sh)
+[3]: [mutt-query-complete](https://github.com/Konfekt/mutt-query-complete.vim)
 
 vim:tw=78:ts=2:sts=2:sw=2:ft=help:norl
+
 
