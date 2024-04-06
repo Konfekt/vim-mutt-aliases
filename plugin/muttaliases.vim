@@ -11,12 +11,6 @@ if !exists('g:muttaliases_filetypes')
   let g:muttaliases_filetypes = [ 'mail' ]
 endif
 
-let s:fts = ''
-for ft in g:muttaliases_filetypes
-  let s:fts .= ft . ','
-endfor
-let s:fts = s:fts[:-1]
-
 command! MuttAliasesCompletion call s:muttaliases()
 
 function! s:muttaliases() abort
@@ -27,7 +21,7 @@ endfunction
 
 augroup muttaliases
   autocmd!
-  exe 'autocmd FileType' s:fts 'MuttAliasesCompletion'
+  exe 'autocmd FileType' join(g:muttaliases_filetypes, ',') 'MuttAliasesCompletion'
 augroup end
 
 " ------------------------------------------------------------------------------
