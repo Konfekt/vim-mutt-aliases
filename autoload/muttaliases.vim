@@ -91,9 +91,11 @@ function! muttaliases#CompleteMuttAliases(findstart, base) abort
         let name = words[1]
         if name =~? pattern
           " get the alias part
-          " mutt uses \ to escape ", we need to remove it!
+          " mutt uses \ to escape "; remove it ...
           let address = substitute(join(words[2:-1], ' '), '\\', '', 'g')
           let address = substitute(address, '\v([^\\])#.*$', '\1', '')
+          " ... and add them back wholesale
+          let address = substitute(address, '\v(^.*)\s+(\<[^>]+\>)','"\1" \2', '')
           let dict = {}
           let dict['word'] = address
           let dict['abbr'] = strlen(name) < 35 ? name : name[0:30] . '...'
