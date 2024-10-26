@@ -91,11 +91,16 @@ function! muttaliases#CompleteMuttAliases(findstart, base) abort
         let name = words[1]
         if name =~? pattern
           " get the alias part
-          " mutt uses \ to escape "; remove it ...
-          let address = substitute(join(words[2:-1], ' '), '\\', '', 'g')
+          let address = join(words[2:-1], ' ')
+          " remove comments
           let address = substitute(address, '\v([^\\])#.*$', '\1', '')
-          " ... and add them back wholesale
+          " remove \ (used for escaping ")...
+          let address = substitute(address, '\\', '', 'g')
+          " Add doubles quotes in case of special characters such as , or ;
           let address = substitute(address, '\v(^.*)\s+(\<[^>]+\>)','"\1" \2', '')
+          " ... but avoid doubling double quotes
+          let address = substitute(address, '"\+', '"', 'g')
+
           let dict = {}
           let dict['word'] = address
           let dict['abbr'] = strlen(name) < 35 ? name : name[0:30] . '...'
