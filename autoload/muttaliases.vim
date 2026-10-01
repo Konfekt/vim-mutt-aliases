@@ -11,7 +11,7 @@ function! muttaliases#SetMuttAliasesFile() abort
       silent let output = split(system(mutt . ' -Q "alias_file"'), '\n')
 
       for line in output
-        let alias_file = matchstr(line,'\v^\s*' . 'alias_file' . '\s*\=\s*[''"]?' . '\zs[^''"]*\ze' . '[''"]?$')
+        let alias_file = matchstr(line, '\v^\s*(set\s+)?' . 'alias_file' . '\s*\=\s*"\zs[^"]+\ze"\s*$')
         if !empty(alias_file)
           let g:muttaliases_file = resolve(expand(alias_file))
           break
