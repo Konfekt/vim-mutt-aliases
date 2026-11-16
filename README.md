@@ -47,6 +47,8 @@ For example, `$file` could be
   ~/.mutt/aliases
 ```
 
+A leading `~` and environment variables such as `$XDG_CONFIG_HOME` in this path are expanded.
+
 As a suggestion, if you use different mail accounts with different aliases, add in `.muttrc` a folder hook, say for the account `mailo`,
 
 ```
@@ -65,7 +67,7 @@ set editor = 'vim +"let g:muttaliases_file=\"$XDG_CONFIG_HOME/mutt/accounts/mail
 
     - for all e-mail addresses found in a mail dir, such as the `INBOX`, there is the [mutt-alias.sh](https://github.com/Konfekt/mutt-alias.sh) shell script;
         best run by a, say weekly, [(ana)cronjob](https://konfekt.github.io/blog/2016/12/11/sane-cron-setup).
-    -  for every opened e-mail, there is a [shell script](http://wcaleb.org/blog/mutt-tips) that uses `$display_fiter` (and which is extended in [mutt-alias-auto-add](https://github.com/teddywing/mutt-alias-auto-add)).
+    -  for every opened e-mail, there is a [shell script](http://wcaleb.org/blog/mutt-tips) that uses `$display_filter` (and which is extended in [mutt-alias-auto-add](https://github.com/teddywing/mutt-alias-auto-add)).
 - The plugin [mutt-query-complete.vim](https://github.com/Konfekt/mutt-query-complete.vim) lets you complete e-mail addresses in Vim by the `$query_command` set up in Mutt
 
 # Credits

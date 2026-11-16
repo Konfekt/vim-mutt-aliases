@@ -1,10 +1,10 @@
-if exists('g:loaded_muttaliases') || &cp
+if exists('g:loaded_muttaliases') || &compatible
   finish
 endif
 let g:loaded_muttaliases = 1
 
-let s:keepcpo         = &cpo
-set cpo&vim
+let s:keepcpo = &cpoptions
+set cpoptions&vim
 " ------------------------------------------------------------------------------
 
 if !exists('g:muttaliases_filetypes')
@@ -21,9 +21,11 @@ endfunction
 
 augroup muttaliases
   autocmd!
-  exe 'autocmd FileType' join(g:muttaliases_filetypes, ',') 'MuttAliasesCompletion'
+  if !empty(g:muttaliases_filetypes)
+    exe 'autocmd FileType' join(g:muttaliases_filetypes, ',') 'MuttAliasesCompletion'
+  endif
 augroup end
 
 " ------------------------------------------------------------------------------
-let &cpo= s:keepcpo
+let &cpoptions = s:keepcpo
 unlet s:keepcpo
