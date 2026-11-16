@@ -55,10 +55,10 @@ As a suggestion, if you use different mail accounts with different aliases, add 
 folder-hook '~/.local/share/mbsync/mailo/' 'source "$XDG_CONFIG_HOME/mutt/accounts/mailo"'
 ```
 
-and in `"$XDG_CONFIG_HOME/mutt/accounts/mailo"` tell Vim about the alias file by
+and in `"$XDG_CONFIG_HOME/mutt/accounts/mailo"` tell Vim about the alias file, before it opens the message, by
 
 ```
-set editor = 'vim +"let g:muttaliases_file=\"$XDG_CONFIG_HOME/mutt/accounts/mailo.aliases\"" %s'
+set editor = 'vim --cmd "let g:muttaliases_file=\"$XDG_CONFIG_HOME/mutt/accounts/mailo.aliases\"" %s'
 ```
 
 # Related:

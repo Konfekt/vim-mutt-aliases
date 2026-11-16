@@ -26,7 +26,7 @@ and your cursor is right after foo, then hit Ctrl+X Ctrl+U to obtain:
 ===========================================================================
 1. Commands ~
 
-The command :*EditAliases* opens the mutt aliases file in Vim.
+The command *:EditAliases* opens the mutt aliases file in Vim.
 For less typing, you can (command-line) alias it to ea by
 [vim-alias][1]
 
@@ -59,9 +59,9 @@ add in .muttrc a folder hook, say for the account named mailo,
   folder-hook '~/.local/share/mbsync/mailo/' 'source "$XDG_CONFIG_HOME/mutt/accounts/mailo.muttrc"'
 <
 and in "$XDG_CONFIG_HOME/mutt/accounts/mailo.muttrc" tell Vim about the alias
-file by
+file, before it opens the message, by
 >
-  set editor = 'vim +"let g:muttaliases_file=\"$XDG_CONFIG_HOME/mutt/accounts/mailo.aliases\"" %s'
+  set editor = 'vim --cmd "let g:muttaliases_file=\"$XDG_CONFIG_HOME/mutt/accounts/mailo.aliases\"" %s'
 <
 
 ===========================================================================

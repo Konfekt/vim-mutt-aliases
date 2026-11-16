@@ -98,6 +98,22 @@ function! s:TestNeomuttQuery() abort
   let $PATH = s:tmp . '/nobin'
 endfunction
 
+function! s:TestFailingMuttQuery() abort
+  let exe = s:tmp . '/bin/neomutt'
+  call writefile(['#!/bin/sh', 'echo "Error in muttrc" >&2', 'exit 1'], exe)
+  call setfperm(exe, 'rwx------')
+  call writefile(['set alias_file = "~/.mutt/aliases"'], $HOME . '/.muttrc')
+  let $PATH = s:tmp . '/bin:/usr/bin:/bin'
+  call s:Check('failing neomutt -Q: no error', s:Detect(), '')
+  call s:Check('failing neomutt -Q: muttrc read', get(g:, 'muttaliases_file', ''), resolve(s:aliases))
+  let $PATH = s:tmp . '/nobin'
+  call delete($HOME . '/.muttrc')
+endfunction
+
+function! s:TestNothingFound() abort
+  call s:Check('nothing found: message', s:Detect() =~# '^Vim(echoerr):No mutt aliases file found\.', 1)
+endfunction
+
 function! s:TestUserTilde() abort
   let g:muttaliases_file = '~/.mutt/aliases'
   call s:Check('user ~ path: no error', s:Try('call muttaliases#SetMuttAliasesFile()'), '')
@@ -188,7 +204,7 @@ function! s:TestInsertModeCompletion() abort
 endfunction
 
 for s:test in [
-      \ 'MuttrcFallback', 'MuttrcTrailingComment', 'MuttrcXdg', 'NeomuttQuery',
+      \ 'MuttrcFallback', 'MuttrcTrailingComment', 'MuttrcXdg', 'NeomuttQuery', 'FailingMuttQuery', 'NothingFound',
       \ 'UserTilde', 'InvalidFile', 'Findstart', 'BlankLines', 'Completion',
       \ 'FileTypeSetup', 'EditAliasesSpecialName', 'InsertModeCompletion']
   let s:err = s:Try('call s:Test' . s:test . '()')
