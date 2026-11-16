@@ -50,6 +50,9 @@ For example, $file could be
 >
   ~/.mutt/aliases
 <
+A leading ~ and environment variables such as $XDG_CONFIG_HOME in this path
+are expanded.
+
 As a suggestion, if you use different mail accounts with different aliases,
 add in .muttrc a folder hook, say for the account named mailo,
 >
