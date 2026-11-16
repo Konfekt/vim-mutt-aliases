@@ -1,5 +1,5 @@
 " Candidate mutt configuration files, searched in order when no mutt
-" executable is available to query $alias_file.
+" executable can be queried for $alias_file.
 let s:muttrcs = [
       \ '~/.config/neomutt/neomuttrc', '~/.config/neomutt/muttrc',
       \ '~/.config/mutt/neomuttrc', '~/.config/mutt/muttrc',
@@ -14,7 +14,7 @@ function! s:file() abort
 endfunction
 
 function! s:error(file) abort
-  echoerr 'The file ' . a:file . ' is no valid mutt aliases file.'
+  echoerr (empty(a:file) ? 'No mutt aliases file found.' : 'The file ' . a:file . ' is no valid mutt aliases file.')
         \ 'Please set $alias_file in ~/.muttrc or g:muttaliases_file in ~/.vimrc to a mutt aliases file!'
 endfunction
 
@@ -53,7 +53,11 @@ endfunction
 function! muttaliases#SetMuttAliasesFile() abort
   if !exists('g:muttaliases_file')
     let mutt = get(filter(['neomutt', 'mutt'], 'executable(v:val)'), 0, '')
-    let file = empty(mutt) ? s:parse_muttrc() : s:query_mutt(mutt)
+    let file = empty(mutt) ? '' : s:query_mutt(mutt)
+    if empty(file)
+      " No mutt, or it failed, for example on an error in the muttrc.
+      let file = s:parse_muttrc()
+    endif
     let g:muttaliases_file = empty(file) ? '' : resolve(expand(file))
   endif
   if !filereadable(s:file())
